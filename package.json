@@ -23,5 +23,6 @@
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "_buildTime": "2026-05-01T21:25:56.082Z"
 }
