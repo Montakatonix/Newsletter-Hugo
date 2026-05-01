@@ -12,7 +12,16 @@ import { useLanguage } from "@/app/context/LanguageContext";
 function Section({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
   return (
-    <div ref={ref} style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? "translateY(0)" : "translateY(36px)", transition: `opacity 0.8s ease ${delay}ms, transform 0.8s ease ${delay}ms` }}>{children}</div>
+    <div
+      ref={ref}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(36px)",
+        transition: `opacity 0.8s ease ${delay}ms, transform 0.8s ease ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -32,22 +41,22 @@ export default function HomePage() {
           <div className="max-w-5xl mx-auto px-6 md:px-10 w-full">
             <div className="grid md:grid-cols-12 gap-12 items-center">
               <div className="md:col-span-7">
-                <p ref={heroRef� className="mb-8" style={{ fontFamily: "var(--font-jost)", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, opacity: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.8s ease 100ms, transform 0.8s ease 100ms" }}>{t("hero.label")}</p>
+                <p ref={heroRef} className="mb-8" style={{ fontFamily: "var(--font-jost)", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, opacity: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.8s ease 100ms, transform 0.8s ease 100ms" }}>{t("hero.label")}</p>
                 <h1 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(3rem, 7vw, 5.5rem)", fontWeight: 400, lineHeight: 1.0, letterSpacing: "-0.02em", color: "#2C2926", marginBottom: "2rem", opacity: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(24px)", transition: "opacity 0.9s ease 200ms, transform 0.9s ease 200ms" }}>Almanaque<br /><span style={{ fontStyle: "italic", fontWeight: 300 }}>Contemporâneo</span></h1>
                 <p style={{ fontFamily: "var(--font-jost)", fontSize: "1.0625rem", fontWeight: 300, color: "#4A433D", lineHeight: "1.8", maxWidth: "480px", marginBottom: "1.5rem", opacity: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 300ms, transform 0.9s ease 300ms" }}>{t("manifesto.body")}</p>
                 <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.15rem", fontStyle: "italic", color: "#4F5B4A", marginBottom: "2.5rem", opacity: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 400ms, transform 0.9s ease 400ms" }}>{t("hero.quote")}</p>
-                <div style={{ maxWidth: "440px", opacity: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 500ms, transform 0.9s ease 500ms" }}>
+                <div style={{ maxWidth: "440px", opacity: heroVisible ? 1 : 0, transform: heroVisible ? 1 : 0, transform: heroVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 500ms, transform 0.9s ease 500ms" }}>
                   <NewsletterForm variant="minimal" ctaLabelKey="hero.cta" placeholderKey="hero.placeholder" />
                   <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.72rem", color: "#4A433D", opacity: 0.55, marginTop: "0.75rem", fontWeight: 300 }}>{t("hero.sub")}</p>
                 </div>
               </div>
-              <div className="hidden md:flex md:col-span-5 items-center justify-center" style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? "perspective(1000px) rotateY(0deg)" : "perspective(1000px) rotateY(-12deg)", transition: "opacity 1.2s ease 600ms, transform 1.2s ease 600ms" }}>
+              <div className="hidden md:flex md:col-span-5 items-center justify-center" style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? 1 : 0, transform: heroVisible ? "perspective(1000px) rotateY(0deg)" : "perspective(1000px) rotateY(-12deg)", transition: "opacity 1.2s ease 600ms, transform 1.2s ease 600ms" }}>
                 <div style={{ width: "100%", aspectRatio: "3/4", backgroundColor: "rgba(79,91,74,0.07)", border: "1px solid rgba(79,91,74,0.15)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2rem", padding: "3rem", position: "relative", transformStyle: "preserve-3d" }}>
                   <div style={{ position: "absolute", inset: "8px", border: "1px solid rgba(79,91,74,0.08)", pointerEvents: "none" }} />
                   <div style={{ width: "40px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.4 }} />
                   <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontStyle: "italic", color: "#2C2926", textAlign: "center", lineHeight: "1.7" }}>{t("hero.visual1")}<br />{t("hero.visual2")}<br /><br />{t("hero.visual3")}<br />{t("hero.visual4")}</p>
                   <div style={{ width: "40px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.4 }} />
-                  <span style={{ color: "#4F5B4A", opacity: 0.5, fontSize: "0.9rem" }}>🌿</pnan>
+                  <span style={{ color: "#4F5B4A", opacity: 0.5, fontSize: "0.9rem" }}>🌿</span>
                 </div>
               </div>
             </div>
