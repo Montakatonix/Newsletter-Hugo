@@ -1,1 +1,32 @@
-aW1wb3J0IHsgTmV4dFJlcXVlc3QsIE5leHRSZXNwb25zZSB9IGZyb20gIm5leHQvc2VydmVyIjsKaW1wb3J0IHsgc3Vic2NyaWJlIH0gZnJvbSAiQC9hcHAvbGliL25ld3NsZXR0ZXIiOwoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIFBPU1QocmVxOiBOZXh0UmVxdWVzdCkgewogIHRyeSB7CiAgICBjb25zdCBib2R5ID0gYXdhaXQgcmVxLmpzb24oKTsKICAgIGNvbnN0IHsgZW1haWwsIG5vbWUgfSA9IGJvZHk7CiAgICBpZiAoIWVtYWlsIHx8ICFlbWFpbC5pbmNsdWRlcygiQCIpKSB7CiAgICAgIHJldHVybiBOZXh0UmVzcG9uc2UuanNvbih7IHN1Y2Nlc3M6IGZhbHNlLCBlcnJvcjogIkVtYWlsIGludsOhbGlkby4iIH0sIHsgc3RhdHVzOiA0MDAgfSk7CiAgICB9CiAgICBjb25zdCByZXN1bHQgPSBhd2FpdCBzdWJzY3JpYmUoeyBlbWFpbCwgbm9tZSB9KTsKICAgIGlmICghcmVzdWx0LnN1Y2Nlc3MpIHsKICAgICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKHsgc3VjY2VzczogZmFsc2UsIGVycm9yOiByZXN1bHQuZXJyb3IgfHwgIkVycm8gYW8gc3Vic2NyZXZlci4iIH0sIHsgc3RhdHVzOiA1MDAgfSk7CiAgICB9CiAgICByZXR1cm4gTmV4dFJlc3BvbnNlLmpzb24oeyBzdWNjZXNzOiB0cnVlLCBtZXNzYWdlOiByZXN1bHQubWVzc2FnZSB9KTsKICB9IGNhdGNoIHsKICAgIHJldHVybiBOZXh0UmVzcG9uc2UuanNvbih7IHN1Y2Nlc3M6IGZhbHNlLCBlcnJvcjogIlBlZGlkbyBpbnbDoWxpZG8uIiB9LCB7IHN0YXR1czogNDAwIH0pOwogIH0KfQo=
+import { NextRequest, NextResponse } from "next/server";
+import { subscribe } from "@/app/lib/newsletter";
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { email, nome } = body;
+
+    if (!email || !email.includes("@")) {
+      return NextResponse.json(
+        { success: false, error: "Email inválido." },
+        { status: 400 }
+      );
+    }
+
+    const result = await subscribe({ email, nome });
+
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, error: result.error || "Erro ao subscrever." },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ success: true, message: result.message });
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "Pedido inválido." },
+      { status: 400 }
+    );
+  }
+}
