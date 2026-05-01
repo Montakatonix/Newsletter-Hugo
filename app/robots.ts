@@ -1,1 +1,12 @@
-aW1wb3J0IHsgTWV0YWRhdGFSb3V0ZSB9IGZyb20gIm5leHQiOwpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiByb2JvdHMoKTogTWV0YWRhdGFSb3V0ZS5Sb2JvdHMgewogIHJldHVybiB7IHJ1bGVzOiB7IHVzZXJBZ2VudDogIioiLCBhbGxvdzogIi8iLCBkaXNhbGxvdzogWyIvZ3JhY2lhcyIsICIvYXBpLyJdIH0sIHNpdGVtYXA6ICJodHRwczovL2FsbWFuYXF1ZS1jb250ZW1wb3JhbmVvLmNvbS9zaXRlbWFwLnhtbCIgfTsKfQo=
+import { MetadataRoute } from "next";
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/gracias", "/api/"],
+    },
+    sitemap: "https://almanaque-contemporaneo.com/sitemap.xml",
+  };
+}
