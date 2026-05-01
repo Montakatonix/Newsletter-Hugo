@@ -1,1 +1,23 @@
-aW1wb3J0IHsgTWV0YWRhdGFSb3V0ZSB9IGZyb20gIm5leHQiOwppbXBvcnQgeyBjYXJ0YXMgfSBmcm9tICJAL2FwcC9kYXRhL2NhcnRhcyI7CgpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBzaXRlbWFwKCk6IE1ldGFkYXRhUm91dGUuU2l0ZW1hcCB7CiAgY29uc3QgYmFzZSA9ICJodHRwczovL2FsbWFuYXF1ZS1jb250ZW1wb3JhbmVvLmNvbSI7CiAgY29uc3Qgc3RhdGljUGFnZXM6IE1ldGFkYXRhUm91dGUuU2l0ZW1hcCA9IFsKICAgIHsgdXJsOiBiYXNlLCBsYXN0TW9kaWZpZWQ6IG5ldyBEYXRlKCksIGNoYW5nZUZyZXF1ZW5jeTogIndlZWtseSIsIHByaW9yaXR5OiAxIH0sCiAgICB7IHVybDogYCR7YmFzZX0vYXJxdWl2b2AsIGxhc3RNb2RpZmllZDogbmV3IERhdGUoKSwgY2hhbmdlRnJlcXVlbmN5OiAid2Vla2x5IiwgcHJpb3JpdHk6IDAuOSB9LAogICAgeyB1cmw6IGAke2Jhc2V9L3NvYnJlYCwgbGFzdE1vZGlmaWVkOiBuZXcgRGF0ZSgpLCBjaGFuZ2VGcmVxdWVuY3k6ICJtb250aGx5IiwgcHJpb3JpdHk6IDAuNyB9LAogICAgeyB1cmw6IGAke2Jhc2V9L2NvbWVuemFyYCwgbGFzdE1vZGlmaWVkOiBuZXcgRGF0ZSgpLCBjaGFuZ2VGcmVxdWVuY3k6ICJtb250aGx5IiwgcHJpb3JpdHk6IDAuOCB9LAogICAgeyB1cmw6IGAke2Jhc2V9L3N1c2NyaWJpcnNlYCwgbGFzdE1vZGlmaWVkOiBuZXcgRGF0ZSgpLCBjaGFuZ2VGcmVxdWVuY3k6ICJtb250aGx5IiwgcHJpb3JpdHk6IDAuNiB9LAogIF07CiAgY29uc3QgY2FydGFQYWdlcyA9IGNhcnRhcy5tYXAoKGMpID0+ICh7IHVybDogYCR7YmFzZX0vYXJxdWl2by8ke2Muc2x1Z31gLCBsYXN0TW9kaWZpZWQ6IG5ldyBEYXRlKGMuZGF0YSksIGNoYW5nZUZyZXF1ZW5jeTogInllYXJseSIsIHByaW9yaXR5OiAwLjggfSkpOwogIHJldHVybiBbLi4uc3RhdGljUGFnZXMsIC4uLmNhcnRhUGFnZXNdOwp9Cg==
+import { MetadataRoute } from "next";
+import { cartas } from "@/app/data/cartas";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = "https://almanaque-contemporaneo.com";
+
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/arquivo`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/sobre`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/comenzar`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/suscribirse`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+  ];
+
+  const cartaPages: MetadataRoute.Sitemap = cartas.map((carta) => ({
+    url: `${base}/arquivo/${carta.slug}`,
+    lastModified: new Date(carta.data),
+    changeFrequency: "yearly",
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...cartaPages];
+}
