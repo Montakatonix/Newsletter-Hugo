@@ -86,13 +86,97 @@ export default function HomePage() {
                 <div style={{ width: "48px", height: "2px", backgroundColor: "#4F5B4A", marginBottom: "1.75rem", opacity: hv ? 1 : 0, transformOrigin: "left", transform: hv ? "scaleX(1)" : "scaleX(0)", transition: "transform 1s cubic-bezier(.22,1,.36,1) 450ms, opacity 0.5s ease 450ms" }} />
                 <p style={{ fontFamily: "var(--font-jost)", fontSize: "1.0625rem", fontWeight: 300, color: "#4A433D", lineHeight: "1.85", maxWidth: "460px", marginBottom: "1.5rem", opacity: hv ? 1 : 0, transform: hv ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 500ms, transform 0.9s ease 500ms" }}>{t("manifesto.body")}</p>
                 <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", fontStyle: "italic", color: "#4F5B4A", marginBottom: "2.5rem", opacity: hv ? 1 : 0, transform: hv ? "translateX(0)" : "translateX(-16px)", transition: "opacity 0.9s ease 620ms, transform 0.9s ease 620ms" }}>{t("hero.quote")}</p>
-                <div style={{ maxWidth: "440px", opacity: hv ? 1 : 0, transform: hv ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 740ms, transform 0.9s ease 740ms" }}><NewsletterForm variant="minimal" ctaLabelKey="hero.cta" placeholderKey="hero.placeholder" /><p style={{ fontFamily: "var(--font-jost)", fontSize: "0.72rem", color: "#4A433D", opacity: 0.5, marginTop: "0.75rem", fontWeight: 300 }}>{t("hero.sub")}</p></div>
+                <div style={{ maxWidth: "440px", opacity: hv ? 1 : 0, transform: hv ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s ease 740ms, transform 0.9s ease 740ms" }}>
+                  <NewsletterForm variant="minimal" ctaLabelKey="hero.cta" placeholderKey="hero.placeholder" />
+                  <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.72rem", color: "#4A433D", opacity: 0.5, marginTop: "0.75rem", fontWeight: 300 }}>{t("hero.sub")}</p>
+                </div>
               </div>
-              <div className="hidden md:flex md:col-span-5 items-center justify-center" style={{ opacity: hv ? 1 : 0, transform: hv ? "perspective(1000px) rotateY(0deg) translateY(0)" : "perspective(1000px) rotateY(-18deg) translateY(30px)", transition: "opacity 1.4s cubic-bezier(.22,1,.36,1) 800ms, transform 1.4s cubic-bezier(.22,1,.36,1) 800ms" }}><div className="anim-float-slow" style={{ width: "100%", aspectRatio: "3/4", backgroundColor: "rgba(79,91,74,0.06)", border: "1px solid rgba(79,91,74,0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.75rem", padding: "3rem", position: "relative", transformStyle: "preserve-3d" }}><div style={{ position: "absolute", inset: "8px", border: "1px solid rgba(79,91,74,0.1)", pointerEvents: "none" }} /><div style={{ position: "absolute", inset: "16px", border: "1px solid rgba(79,91,74,0.05)", pointerEvents: "none" }} /><div style={{ width: "32px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.5 }} /><p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.15rem", fontStyle: "italic", color: "#2C2926", textAlign: "center", lineHeight: "1.75" }}>{t("hero.visual1")}<br />{t("hero.visual2")}<br /><br />{t("hero.visual3")}<br />{t("hero.visual4")}</p><div style={{ width: "32px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.5 }} /></div></div>
+              <div className="hidden md:flex md:col-span-5 items-center justify-center" style={{ opacity: hv ? 1 : 0, transform: hv ? "perspective(1000px) rotateY(0deg) translateY(0)" : "perspective(1000px) rotateY(-18deg) translateY(30px)", transition: "opacity 1.4s cubic-bezier(.22,1,.36,1) 800ms, transform 1.4s cubic-bezier(.22,1,.36,1) 800ms" }}>
+                <div className="anim-float-slow" style={{ width: "100%", aspectRatio: "3/4", backgroundColor: "rgba(79,91,74,0.06)", border: "1px solid rgba(79,91,74,0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.75rem", padding: "3rem", position: "relative", transformStyle: "preserve-3d" }}>
+                  <div style={{ position: "absolute", inset: "8px", border: "1px solid rgba(79,91,74,0.1)", pointerEvents: "none" }} />
+                  <div style={{ position: "absolute", inset: "16px", border: "1px solid rgba(79,91,74,0.05)", pointerEvents: "none" }} />
+                                        {{t:"2px",l:"12px"},{t:"2px",r:"12px"},{b:"2px",l:"12px"},{b:"2px",r:"12px"}].map((pos,i)=>(
+                    <div key={i} style={{ position:"absolute", top:(pos as any).t, bottom:(pos as any).b, left:(pos as any).l, right:(pos as any).r, width:20, height:20, borderTop:(pos as any).t?"2px solid rgba(79,91,74,0.5)":undefined, borderBottom:(pos as any).b?"2px solid rgba(79,91,74,0.5)":undefined, borderLeft:(pos as any).l?"2px solid rgba(79,91,74,0.5)":undefined, borderRight:(pos as any).r?"2px solid rgba(79,91,74,0.5)":undefined, pointerEvents:"none" }}/>
+                  ))}
+                  <div style={{ width: "32px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.5 }} />
+                  <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.15rem", fontStyle: "italic", color: "#2C2926", textAlign: "center", lineHeight: "1.75" }}>
+                    {t("hero.visual1")}<br />{t("hero.visual2")}<br /><br />
+                    {t("hero.visual3")}<br />{t("hero.visual4")}
+                  </p>
+                  <div style={{ width: "32px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.5 }} />
+                  <span style={{ color: "#4F5B4A", opacity: 0.5, fontSize: "0.9rem" }}>[plant]</span>
+                </div>
+              </div>
             </div>
           </div>
-          {showScroll && (<div className="scroll-indicator" style={{ position: "absolute", bottom: "2.5rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", opacity: 0.4 }}><div style={{ width: "1px", height: "32px", background: "linear-gradient(to bottom, rgba(44,41,38,0), rgba(44,41,38,0.6))" }} /><div style={{ width: "4px", height: "4px", borderRadius: "50%", backgroundColor: "#2C2926" }} /></div>)}
+          {showScroll && (
+            <div className="scroll-indicator" style={{ position: "absolute", bottom: "2.5rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", opacity: 0.4 }}>
+              <div style={{ width: "1px", height: "32px", background: "linear-gradient(to bottom, rgba(44,41,38,0), rgba(44,41,38,0.6))" }} />
+              <div style={{ width: "4px", height: "4px", borderRadius: "50%", backgroundColor: "#2C2926" }} />
+            </div>
+          )}
         </section>
-        <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)", borderBottom: "1px solid rgba(44,41,38,0.08)", backgroundColor: "rgba(79,91,74,0.03)" }}><div ref={statsRef} className="max-w-5xl mx-auto px-6 md:px-10 py-8"><div className="grid grid-cols-3 gap-6 md:gap-12" style={{ textAlign: "center" }}>{[{ label: "Cartas", value: cartas.length }, { label: "Min leitura", value: 7 }, { label: "Semanas", value: cartas.length }].map((stat, i) => (<div key={i} style={{ opacity: statsVisible ? 1 : 0, transform: statsVisible ? "translateY(0)" : "translateY(20px)", transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms` }}><div style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300, color: "#2C2926", lineHeight: 1, marginBottom: "0.35rem" }}><AnimatedNumber target={stat.value} visible={statsVisible} /></div><div style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, opacity: 0.7 }}>{stat.label}</div></div>))}</div></div></section><section style={{ borderBottom: "1px solid rgba(44,41,38,0.08)", backgroundColor: "rgba(79,91,74,0.025)" }}><div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28"><Section><div style={{ maxWidth: "680px", margin: "0 auto" }}><p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, marginBottom: "2.5rem" }}>{t("manifesto.label")}</p><p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.6rem, 3.2vw, 2.3rem)", fontWeight: 400, lineHeight: "1.5", color: "#2C2926", marginBottom: "1.5rem" }}>{t("manifesto.heading")}</p><p style={{ fontFamily: "var(--font-jost)", fontSize: "1rem", fontWeight: 300, color: "#4A433D", lineHeight: "1.9", marginBottom: "2rem" }}>{t("manifesto.body")}</p><div className="divider-anim" style={{ marginBottom: "1.75rem" }} /><Link href="/sobre" className="anim-underline btn-animated" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-jost)", fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4F5B4A", textDecoration: "none", fontWeight: 400, padding: "0.5rem 1.25rem", border: "1px solid rgba(79,91,74,0.3)" }}>{t("manifesto.link")}<span style={{ fontSize: "0.8rem" }}>→</span></Link></div></Section></div></section><section className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28"><Section><p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, marginBottom: "1.75rem" }}>{t("section.ultimaCarta")}</p></Section><CartaCard carta={cartaDestaque} variant="featured" delay={100} /></section><section style={{ borderTop: "1px solid rgba(44,41,38,0.08)" }} className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28"><Section><div className="flex items-baseline justify-between mb-10"><p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400 }}>{t("section.arquivo")}</p><Link href="/arquivo" className="anim-underline" style={{ fontFamily: "var(--font-jost)", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4A433D", opacity: 0.65, textDecoration: "none", fontWeight: 300 }}>{t("section.verTodas")}</Link></div></Section><div>{ultimasCartas.slice(1).map((carta, i) => (<CartaCard key={carta.slug} carta={carta} variant="list" delay={i * 100} />))}</div></section><section style={{ borderTop: "1px solid rgba(44,41,38,0.08)", backgroundColor: "#4F5B4A", position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", top: "-30%", right: "-10%", width: "60%", height: "200%", background: "radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents: "none" }} /><div className="max-w-5xl mx-auto px-6 md:px-10 py-24 md:py-32" style={{ position: "relative" }}><Section><div style={{ maxWidth: "520px", margin: "0 auto", textAlign: "center" }}><div style={{ width: "40px", height: "1px", backgroundColor: "rgba(243,239,230,0.3)", margin: "0 auto 2rem" }} /><h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)", fontWeight: 400, fontStyle: "italic", color: "#F3EFE6", lineHeight: 1.15, marginBottom: "1.5rem", whiteSpace: "pre-line" }}>{t("cta.heading")}</h2><p style={{ fontFamily: "var(--font-jost)", fontSize: "0.9375rem", fontWeight: 300, color: "rgba(243,239,230,0.7)", lineHeight: "1.85", marginBottom: "2.5rem" }}>{t("cta.body")}</p><Link href="/suscribirse" className="btn-animated anim-pulse-soft" style={{ display: "inline-block", padding: "0.95rem 2.5rem", backgroundColor: "#F3EFE6", color: "#2C2926", fontFamily: "var(--font-jost)", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, textDecoration: "none" }}>{t("cta.btn")}</Link><div style={{ width: "40px", height: "1px", backgroundColor: "rgba(243,239,230,0.3)", margin: "2rem auto 0" }} /></div></Section></div></section></main><Footer /></>
+        <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)", borderBottom: "1px solid rgba(44,41,38,0.08)", backgroundColor: "rgba(79,91,74,0.03)" }}>
+          <div ref={statsRef} className="max-w-5xl mx-auto px-6 md:px-10 py-8">
+            <div className="grid grid-cols-3 gap-6 md:gap-12" style={{ textAlign: "center" }}>
+              {[{ label: "Cartas", value: cartas.length }, { label: "Min leitura", value: 7 }, { label: "Semanas", value: cartas.length }].map((stat, i) => (
+                <div key={i} style={{ opacity: statsVisible ? 1 : 0, transform: statsVisible ? "translateY(0)" : "translateY(20px)", transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms` }}>
+                  <div style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300, color: "#2C2926", lineHeight: 1, marginBottom: "0.35rem" }}>
+                    <AnimatedNumber target={stat.value} visible={statsVisible} />
+                  </div>
+                  <div style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, opacity: 0.7 }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section style={{ borderBottom: "1px solid rgba(44,41,38,0.08)", backgroundColor: "rgba(79,91,74,0.025)" }}>
+          <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
+            <Section>
+              <div style={{ maxWidth: "680px", margin: "0 auto" }}>
+                <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, marginBottom: "2.5rem" }}>{t("manifesto.label")}</p>
+                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.6rem, 3.2vw, 2.3rem)", fontWeight: 400, lineHeight: "1.5", color: "#2C2926", marginBottom: "1.5rem" }}>{t("manifesto.heading")}</p>
+                <p style={{ fontFamily: "var(--font-jost)", fontSize: "1rem", fontWeight: 300, color: "#4A433D", lineHeight: "1.9", marginBottom: "2rem" }}>{t("manifesto.body")}</p>
+                <div className="divider-anim" style={{ marginBottom: "1.75rem" }} />
+                <Link href="/sobre" className="anim-underline btn-animated" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-jost)", fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4F5B4A", textDecoration: "none", fontWeight: 400, padding: "0.5rem 1.25rem", border: "1px solid rgba(79,91,74,0.3)" }}>
+                  {t("manifesto.link")}<span style={{ fontSize: "0.8rem" }}>→</span>
+                </Link>
+              </div>
+            </Section>
+          </div>
+        </section>
+        <section className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
+          <Section>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, marginBottom: "1.75rem" }}>{t("section.ultimaCarta")}</p>
+          </Section>
+          <CartaCard carta={cartaDestaque} variant="featured" delay={100} />
+        </section>
+        <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)" }} className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
+          <Section>
+            <div className="flex items-baseline justify-between mb-10">
+              <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400 }}>{t("section.arquivo")}</p>
+              <Link href="/arquivo" className="anim-underline" style={{ fontFamily: "var(--font-jost)", fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4A433D", opacity: 0.65, textDecoration: "none", fontWeight: 300 }}>{t("section.verTodas")}</Link>
+            </div>
+          </Section>
+          <div>{ultimasCartas.slice(1).map((carta, i) => (<CartaCard key={carta.slug} carta={carta} variant="list" delay={i * 100} />))}</div>
+        </section>
+        <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)", backgroundColor: "#4F5B4A", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: "-30%", right: "-10%", width: "60%", height: "200%", background: "radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
+          <div className="max-w-5xl mx-auto px-6 md:px-10 py-24 md:py-32" style={{ position: "relative" }}>
+            <Section>
+              <div style={{ maxWidth: "520px", margin: "0 auto", textAlign: "center" }}>
+                <div style={{ width: "40px", height: "1px", backgroundColor: "rgba(243,239,230,0.3)", margin: "0 auto 2rem" }} />
+                <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)", fontWeight: 400, fontStyle: "italic", color: "#F3EFE6", lineHeight: 1.15, marginBottom: "1.5rem", whiteSpace: "pre-line" }}>{t("cta.heading")}</h2>
+                <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.9375rem", fontWeight: 300, color: "rgba(243,239,230,0.7)", lineHeight: "1.85", marginBottom: "2.5rem" }}>{t("cta.body")}</p>
+                <Link href="/suscribirse" className="btn-animated anim-pulse-soft" style={{ display: "inline-block", padding: "0.95rem 2.5rem", backgroundColor: "#F3EFE6", color: "#2C2926", fontFamily: "var(--font-jost)", fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, textDecoration: "none" }}>{t("cta.btn")}</Link>
+                <div style={{ width: "40px", height: "1px", backgroundColor: "rgba(243,239,230,0.3)", margin: "2rem auto 0" }} />
+              </div>
+            </Section>
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </>
   );
 }
