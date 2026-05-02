@@ -1,103 +1,185 @@
 "use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
 import { useLanguage } from "@/app/context/LanguageContext";
+import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const { lang, setLang, t } = useLanguage();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  useEffect(() => {
+    const id = setInterval(() => setTick(v => v + 1), 1200);
+    return () => clearInterval(id);
+  }, []);
+
+  const blink = tick % 2 === 0;
+
   const navLinks = [
-    { href: "/arquivo", labelKey: "nav.arquivo" },
-    { href: "/sobre", labelKey: "nav.sobre" },
-    { href: "/comenzar", labelKey: "nav.comenzar" },
+    { href: "/arquivo", label: t("nav.arquivo") || "ARQUIVO" },
+    { href: "/sobre", label: t("nav.sobre") || "SOBRE" },
   ];
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50"
-      style={{
-        backgroundColor: scrolled ? "rgba(243,239,230,0.97)" : "rgba(243,239,230,0.85)",
-        backdropFilter: "blur(16px)",
-        borderBottom: scrolled ? "1px solid rgba(44,41,38,0.1)" : "1px solid transparent",
-        transition: "background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
-        boxShadow: scrolled ? "0 2px 24px rgba(44,41,38,0.06)" : "none",
-      }}
-    >
-      {/* Progress bar */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0,
-        height: "1.5px",
-        width: `${scrollProgress}%`,
-        backgroundColor: "#4F5B4A",
-        transition: "width 0.15s ease",
-        opacity: 0.6,
-      }} />
+    <>
+      <style>{`
+        .navbar {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+          transition: background .3s, border-color .3s;
+        }
+        .navbar.scrolled {
+          background: rgba(3,7,18,.92);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 0 clamp(1.5rem,5vw,5rem);
+          height: 64px;
+        }
+        .nav-logo {
+          display: flex; align-items: center; gap: .75rem;
+          text-decoration: none;
+        }
+        .nav-logo-text {
+          font-size: .72rem; font-weight: 700;
+          letter-spacing: .2em; color: #fff;
+          text-transform: uppercase;
+        }
+        .nav-logo-sub {
+          font-size: .5rem; letter-spacing: .15em;
+          color: var(--cyan); opacity: .7;
+          font-weight: 400;
+        }
+        .nav-links {
+          display: flex; align-items: center; gap: 2.5rem;
+        }
+        .nav-link {
+          font-size: .58rem; letter-spacing: .2em;
+          color: rgba(226,232,240,.55);
+          text-transform: uppercase; text-decoration: none;
+          transition: color .2s; position: relative;
+        }
+        .nav-link::after {
+          content: ''; position: absolute; bottom: -4px; left: 0;
+          width: 0; height: 1px; background: var(--cyan);
+          transition: width .3s;
+        }
+        .nav-link:hover { color: var(--cyan); }
+        .nav-link:hover::after { width: 100%; }
+        .nav-lang {
+          font-size: .55rem; letter-spacing: .18em;
+          background: transparent; border: 1px solid var(--border);
+          color: rgba(226,232,240,.45); cursor: pointer;
+          padding: .3rem .7rem;
+          clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+          transition: all .2s; font-family: var(--font-mono);
+        }
+        .nav-lang:hover { border-color: var(--cyan); color: var(--cyan); }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-cta {
+          font-size: .58rem; letter-spacing: .18em;
+          padding: .45rem 1.2rem;
+          background: transparent; border: 1px solid var(--cyan);
+          color: var(--cyan); text-decoration: none;
+          clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+          transition: all .2s; text-transform: uppercase;
+          white-space: nowrap;
+        }
+        .nav-cta:hover { background: rgba(0,255,229,.1); box-shadow: 0 0 16px rgba(0,255,229,.25); }
+        .scan-line {
+          position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+          background: linear-gradient(to right, transparent, var(--cyan), var(--magenta), transparent);
+          opacity: 0; transition: opacity .3s;
+        }
+        .navbar.scrolled .scan-line { opacity: 1; }
+        .hamburger {
+          display: none; flex-direction: column; gap: 5px;
+          background: none; border: none; cursor: pointer; padding: 8px;
+        }
+        .hamburger span {
+          display: block; width: 20px; height: 1px;
+          background: var(--cyan); transition: all .3s;
+        }
+        .mobile-menu {
+          display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+          background: rgba(3,7,18,.97); backdrop-filter: blur(20px);
+          z-index: 99; flex-direction: column; align-items: center;
+          justify-content: center; gap: 2.5rem;
+          border-top: 1px solid var(--border);
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-link {
+          font-size: 1.2rem; letter-spacing: .25em; color: var(--text);
+          text-transform: uppercase; text-decoration: none;
+          transition: color .2s;
+        }
+        .mobile-link:hover { color: var(--cyan); }
+        @media (max-width: 768px) {
+          .nav-links, .nav-cta { display: none; }
+          .hamburger { display: flex; }
+        }
+      `}</style>
 
-      <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <div style={{
-              display: "flex", flexDirection: "column", lineHeight: 1,
-              transform: scrolled ? "scale(0.95)" : "scale(1)",
-              transformOrigin: "left center",
-              transition: "transform 0.4s ease",
-            }}>
-              <span style={{ fontFamily: "var(--font-jost)", color: "#4F5B4A", letterSpacing: "0.22em", fontWeight: 400, fontSize: "0.62rem", textTransform: "uppercase" }}>Almanaque</span>
-              <span style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "1.1rem", fontWeight: 500, color: "#2C2926" }}>Contemporâneo</span>
+      <nav className={`navbar${scrolled ? " scrolled" : ""}`} style={{ position: "fixed" }}>
+        <div className="nav-inner">
+          <Link href="/" className="nav-logo">
+            <div style={{ display: "flex", flexDirection: "column" as const }}>
+              <span className="nav-logo-text">
+                ALMANAQUE
+              </span>
+              <span className="nav-logo-sub">
+                CONTEMP.&nbsp;
+                <span style={{ display: "inline-block", width: 6, height: 6, background: "var(--cyan)", borderRadius: "50%", verticalAlign: "middle", boxShadow: "0 0 6px var(--cyan)", opacity: blink ? 1 : 0.2, transition: "opacity .1s" }} />
+              </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-7">
-            {navLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="anim-underline" style={{ fontFamily: "var(--font-jost)", fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: pathname === l.href ? "#4F5B4A" : "#4A433D", textDecoration: "none", fontWeight: 400, opacity: pathname === l.href ? 1 : 0.75, transition: "opacity 0.2s ease, color 0.2s ease" }}>
-                {t(l.labelKey)}
-              </Link>
+          <div className="nav-links">
+            {navLinks.map(l => (
+              <Link key={l.href} href={l.href} className="nav-link">{l.label}</Link>
             ))}
-            <Link href="/suscribirse" className="btn-animated" style={{ padding: "0.45rem 1.25rem", backgroundColor: "#4F5B4A", color: "#F3EFE6", fontFamily: "var(--font-jost)", fontSize: "0.73rem", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", fontWeight: 400 }}>
-              {t("nav.receber")}
+          </div>
+
+          <div className="nav-right">
+            <button className="nav-lang" onClick={() => setLanguage(language === "pt" ? "es" : "pt")}>
+              {language === "pt" ? "ES" : "PT"}
+            </button>
+            <Link href="/#subscribe" className="nav-cta">
+              {t("nav.subscribe") || "SUBSCREVER"}
             </Link>
-            <button onClick={() => setLang(lang === "pt" ? "en" : "pt")} style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#4A433D", opacity: 0.55, background: "none", border: "1px solid rgba(44,41,38,0.2)", padding: "0.28rem 0.6rem", cursor: "pointer", transition: "opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease" }} onMouseEnter={e => { (e.target as HTMLElement).style.opacity = "1"; (e.target as HTMLElement).style.backgroundColor = "rgba(79,91,74,0.06)"; }} onMouseLeave={e => { (e.target as HTMLElement).style.opacity = "0.55"; (e.target as HTMLElement).style.backgroundColor = "transparent"; }}>
-              {lang === "pt" ? "EN" : "PT"}
-            </button>
-          </nav>
-
-          <div className="md:hidden flex items-center gap-3">
-            <button onClick={() => setLang(lang === "pt" ? "en" : "pt")} style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#4A433D", opacity: 0.6, background: "none", border: "1px solid rgba(44,41,38,0.2)", padding: "0.25rem 0.5rem", cursor: "pointer" }}>{lang === "pt" ? "EN" : "PT"}</button>
-            <button className="flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen(!menuOpen)}>
-              <span style={{ display: "block", width: "22px", height: "1.5px", backgroundColor: "#2C2926", transition: "transform 0.3s ease", transform: menuOpen ? "rotate(45deg) translate(2px, 2px)" : "none" }} />
-              <span style={{ display: "block", width: "22px", height: "1.5px", backgroundColor: "#2C2926", opacity: menuOpen ? 0 : 1, transition: "opacity 0.3s ease" }} />
-              <span style={{ display: "block", width: "22px", height: "1.5px", backgroundColor: "#2C2926", transition: "transform 0.3s ease", transform: menuOpen ? "rotate(-45deg) translate(2px, -2px)" : "none" }} />
-            </button>
           </div>
+
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="menu">
+            <span style={{ transform: menuOpen ? "rotate(45deg) translate(4px,4px)" : "none" }} />
+            <span style={{ opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ transform: menuOpen ? "rotate(-45deg) translate(4px,-4px)" : "none" }} />
+          </button>
         </div>
+        <div className="scan-line" />
 
-        {menuOpen && (
-          <div className="md:hidden pb-6 pt-2" style={{ borderTop: "1px solid rgba(44,41,38,0.1)", animation: "fadeUp 0.3s cubic-bezier(.22,1,.36,1) both" }}>
-            <nav className="flex flex-col gap-4 pt-4">
-              {navLinks.map((l) => (
-                <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)} style={{ color: "#4A433D", textDecoration: "none", fontFamily: "var(--font-jost)", fontSize: "0.9rem" }}>{t(l.labelKey)}</Link>
-              ))}
-              <Link href="/suscribirse" onClick={() => setMenuOpen(false)} style={{ padding: "0.65rem 1.4rem", backgroundColor: "#4F5B4A", color: "#F3EFE6", textDecoration: "none", alignSelf: "flex-start", fontFamily: "var(--font-jost)", fontSize: "0.8rem" }}>{t("nav.receber")}</Link>
-            </nav>
-          </div>
-        )}
-      </div>
-    </header>
+        <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
+          {navLinks.map(l => (
+            <Link key={l.href} href={l.href} className="mobile-link" onClick={() => setMenuOpen(false)}>{l.label}</Link>
+          ))}
+          <button className="nav-lang" onClick={() => setLanguage(language === "pt" ? "es" : "pt")}>
+            {language === "pt" ? "ES" : "PT"}
+          </button>
+          <Link href="/#subscribe" className="hb" onClick={() => setMenuOpen(false)}>
+            {t("nav.subscribe") || "SUBSCREVER"}
+          </Link>
+        </div>
+      </nav>
+
+      {/* Spacer */}
+      <div style={{ height: 64 }} />
+    </>
   );
 }
