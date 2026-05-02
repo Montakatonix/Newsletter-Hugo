@@ -95,9 +95,11 @@ export default function HomePage() {
                 <div className="anim-float-slow" style={{ width: "100%", aspectRatio: "3/4", backgroundColor: "rgba(79,91,74,0.06)", border: "1px solid rgba(79,91,74,0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.75rem", padding: "3rem", position: "relative", transformStyle: "preserve-3d" }}>
                   <div style={{ position: "absolute", inset: "8px", border: "1px solid rgba(79,91,74,0.1)", pointerEvents: "none" }} />
                   <div style={{ position: "absolute", inset: "16px", border: "1px solid rgba(79,91,74,0.05)", pointerEvents: "none" }} />
-                                        {{t:"2px",l:"12px"},{t:"2px",r:"12px"},{b:"2px",l:"12px"},{b:"2px",r:"12px"}].map((pos,i)=>(
-                    <div key={i} style={{ position:"absolute", top:(pos as any).t, bottom:(pos as any).b, left:(pos as any).l, right:(pos as any).r, width:20, height:20, borderTop:(pos as any).t?"2px solid rgba(79,91,74,0.5)":undefined, borderBottom:(pos as any).b?"2px solid rgba(79,91,74,0.5)":undefined, borderLeft:(pos as any).l?"2px solid rgba(79,91,74,0.5)":undefined, borderRight:(pos as any).r?"2px solid rgba(79,91,74,0.5)":undefined, pointerEvents:"none" }}/>
-                  ))}
+                  <div style={{ position:"absolute", top:"2px", left:"12px", width:20, height:20, borderTop:"2px solid rgba(79,91,74,0.5)", borderLeft:"2px solid rgba(79,91,74,0.5)", pointerEvents:"none" }}/>
+                  <div style={{ position:"absolute", top:"2px", right:"12px", width:20, height:20, borderTop:"2px solid rgba(79,91,74,0.5)", borderorderTop:"2px solid rgba(79,91,74,0.5)", borderLeft:"2px solid rgba(79,91,74,0.5)", pointerEvents:"none" }}/>
+                  <div style={{ position:"absolute", top:"2px", right:"12px", width:20, height:20, borderTop:"2px solid rgba(79,91,74,0.5)", borderRight:"2px solid rgba(79,91,74,0.5)", pointerEvents:"none" }}/>
+                  <div style={{ position:"absolute", bottom:"2px", left:"12px", width:20, height:20, borderBottom:"2px solid rgba(79,91,74,0.5)", borderLeft:"2px solid rgba(79,91,74,0.5)", pointerEvents:"none" }}/>
+                  <div style={{ position:"absolute", bottom:"2px", right:"12px", width:20, height:20, borderBottom:"2px solid rgba(79,91,74,0.5)", borderRight:"2px solid rgba(79,91,74,0.5)", pointerEvents:"none" }}/>
                   <div style={{ width: "32px", height: "1px", backgroundColor: "#4F5B4A", opacity: 0.5 }} />
                   <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.15rem", fontStyle: "italic", color: "#2C2926", textAlign: "center", lineHeight: "1.75" }}>
                     {t("hero.visual1")}<br />{t("hero.visual2")}<br /><br />
@@ -109,6 +111,8 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          {/* Scroll indicator */}
           {showScroll && (
             <div className="scroll-indicator" style={{ position: "absolute", bottom: "2.5rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", opacity: 0.4 }}>
               <div style={{ width: "1px", height: "32px", background: "linear-gradient(to bottom, rgba(44,41,38,0), rgba(44,41,38,0.6))" }} />
@@ -116,6 +120,8 @@ export default function HomePage() {
             </div>
           )}
         </section>
+
+        {/* ══ STATS ══ */}
         <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)", borderBottom: "1px solid rgba(44,41,38,0.08)", backgroundColor: "rgba(79,91,74,0.03)" }}>
           <div ref={statsRef} className="max-w-5xl mx-auto px-6 md:px-10 py-8">
             <div className="grid grid-cols-3 gap-6 md:gap-12" style={{ textAlign: "center" }}>
@@ -130,6 +136,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* ══ MANIFESTO ══ */}
         <section style={{ borderBottom: "1px solid rgba(44,41,38,0.08)", backgroundColor: "rgba(79,91,74,0.025)" }}>
           <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
             <Section>
@@ -145,12 +153,16 @@ export default function HomePage() {
             </Section>
           </div>
         </section>
+
+        {/* ══ CARTA DESTAQUE ══ */}
         <section className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
           <Section>
             <p style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#4F5B4A", fontWeight: 400, marginBottom: "1.75rem" }}>{t("section.ultimaCarta")}</p>
           </Section>
           <CartaCard carta={cartaDestaque} variant="featured" delay={100} />
         </section>
+
+        {/* ══ ARQUIVO PREVIEW ══ */}
         <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)" }} className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
           <Section>
             <div className="flex items-baseline justify-between mb-10">
@@ -160,6 +172,8 @@ export default function HomePage() {
           </Section>
           <div>{ultimasCartas.slice(1).map((carta, i) => (<CartaCard key={carta.slug} carta={carta} variant="list" delay={i * 100} />))}</div>
         </section>
+
+        {/* ══ CTA FINAL ══ */}
         <section style={{ borderTop: "1px solid rgba(44,41,38,0.08)", backgroundColor: "#4F5B4A", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: "-30%", right: "-10%", width: "60%", height: "200%", background: "radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
           <div className="max-w-5xl mx-auto px-6 md:px-10 py-24 md:py-32" style={{ position: "relative" }}>
